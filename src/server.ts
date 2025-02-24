@@ -16,7 +16,10 @@ const start = async () => {
     
     try {
         // Iniciando o servidor na porta 3333
-        await server.listen({ port: 3333 });
+        server.listen({
+            port: Number(process.env.PORT) || 3333,
+            host: "0.0.0.0."
+        });
     } catch (error) {
         // Caso haja um erro ao tentar iniciar o servidor, o processo será encerrado
         process.exit(1);
