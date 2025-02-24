@@ -1,0 +1,43 @@
+// Define o gerador de cliente Prisma
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Define o provedor de banco de dados
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Counter {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  name   String
+  lastId Int
+  @@map("counter")
+}
+
+// Define o modelo Pessoa
+model Person {
+  id         String @id @default(auto()) @map("_id") @db.ObjectId // id da pessoa
+  name       String // nome da pessoa
+  age        Int // idade da pessoa
+  created_at DateTime? @default(now()) // data de criação
+  updated_at DateTime? @default(now()) // data de atualização
+
+  Transaction Transaction[] @relation("PersonTransactions")// transações relacionadas
+  @@map("people") // nome da coleção no banco de dados
+}
+
+// Define o modelo Transação
+model Transaction {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId // id da transação
+  description String // descrição da transação
+  amount      Float // valor da transação
+  type        String // receita ou despesa
+  person_id   String @db.ObjectId // id da pessoa
+  person Person @relation(fields: [person_id], references: [id], name: "PersonTransactions", onDelete: Cascade) // exclui transações relacionadas se a pessoa for excluída
+  created_at  DateTime? @default(now()) // data de criação
+  updated_at  DateTime? @default(now()) // data de atualização
+
+  @@map("transactions") // nome da coleção no banco de dados
+}
