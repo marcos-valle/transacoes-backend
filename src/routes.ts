@@ -2,8 +2,8 @@
 import { FastifyInstance, FastifyPluginOptions, FastifyRequest, FastifyReply } from "fastify";
 
 // Importando os controladores responsáveis pelo tratamento das requisições
-import { CreatePersonController } from "./controllers/createPersonController";
-import { CreateTransactionController } from "./controllers/createTransactionController";
+import { CreatePersonController } from "./controllers/CreatePersonController";
+import { CreateTransactionController } from "./controllers/CreateTransactionController";
 import { ListPersonController } from "./controllers/ListPersonController";
 import { ListTransactionController } from "./controllers/ListTransactionController";
 import { DeletePersonController } from "./controllers/DeletePersonController";
